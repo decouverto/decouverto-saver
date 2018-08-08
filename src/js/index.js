@@ -5,6 +5,7 @@ const { ipcRenderer, remote } = require('electron');
 const { dialog, app, shell } = remote;
 const fs = require('fs-extra');
 const path = require('path');
+const ls = require('ls');
 const githubRepositories = require('github-repositories');
 const DownloadManager = remote.require('electron-download-manager');
 
@@ -21,8 +22,23 @@ angular.module('UI', ['ngNotie'])
             fs.mkdirp(path.join(mainFolder, 'balades'), err => {
                 if (err) return notie.alert(3, 'Impossible de créer le dossier');
                 fs.writeFile(path.join(mainFolder, 'balades', 'index.json'), JSON.stringify(res.data), 'utf8', err => {
-                    if (err) return notie.alert(3, 'Impossible de sauvegarder la liste des balades');
-                    notie.alert(1, 'La liste des balades a bien été téléchargé.');
+                    if (err) {
+                        notie.alert(3, 'Impossible de sauvegarder la liste des balades');
+                    } else {
+                        notie.alert(1, 'La liste des balades a bien été téléchargé.');
+                    }
+                    // do modification on data when file is saved
+                    for (let file of ls(path.join(mainFolder, 'balades', '*'))) {
+                        if (file.name != 'index') {
+                            let found = $scope.walks.find(element => {
+                                return element.id == file.name;
+                            });
+                            if (found) {
+                                found.downloaded = true;
+                            }
+                        }
+                    }
+                    $scope.$apply();
                 });
             });
         }, () => {
