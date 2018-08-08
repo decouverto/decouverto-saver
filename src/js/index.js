@@ -18,6 +18,13 @@ angular.module('UI', ['ngNotie'])
             url: 'https://decouverto.fr/walks/index.json'
         }).then(res => {
             $scope.walks = res.data;
+            fs.mkdirp(path.join(mainFolder, 'balades'), err => {
+                if (err) return notie.alert(3, 'Impossible de créer le dossier');
+                fs.writeFile(path.join(mainFolder, 'balades', 'index.json'), JSON.stringify(res.data), 'utf8', err => {
+                    if (err) return notie.alert(3, 'Impossible de sauvegarder la liste des balades');
+                    notie.alert(1, 'La liste des balades a bien été téléchargé.');
+                });
+            });
         }, () => {
             notie.alert(3, 'Une erreur a eu lieu dans la synchronisation avec le site internet.');
         })
