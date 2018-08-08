@@ -28,7 +28,7 @@ angular.module('UI', ['ngNotie'])
         });
 
         $scope.downloadRepo = function (repo) {
-            fs.mkdirp(path.join(mainFolder, 'logiciels', 'tmp'), function (err) {
+            fs.mkdirp(path.join(mainFolder, 'logiciels', 'tmp'), err => {
                 if (err) return notie.alert(3, 'Impossible de créer le dossier');
                 DownloadManager.download({
                     url: 'https://codeload.github.com/' + repo.full_name + '/zip/' + repo.default_branch,
@@ -36,9 +36,9 @@ angular.module('UI', ['ngNotie'])
                 }, err => {
                     if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');
                     let filename = repo.name + '-' + repo.default_branch + '.zip';
-                    fs.copy(path.join(mainFolder, 'logiciels', 'tmp', filename), path.join(mainFolder, 'logiciels', filename), (err) => {
+                    fs.copy(path.join(mainFolder, 'logiciels', 'tmp', filename), path.join(mainFolder, 'logiciels', filename), err => {
                         if (err) return notie.alert(3, 'Une erreur a eu lieu lors de la copie.');
-                        fs.remove(path.join(mainFolder, 'logiciels', 'tmp'), (err) => {
+                        fs.remove(path.join(mainFolder, 'logiciels', 'tmp'), err => {
                             if (err) return notie.alert(3, 'Une erreur a eu lieu lors du nettoyage.');
                             repo.downloaded = true;
                             $scope.$apply();
@@ -80,4 +80,25 @@ angular.module('UI', ['ngNotie'])
                 }
             });
         }
+
+        $scope.downloadWalk = function (walk) {
+            fs.mkdirp(path.join(mainFolder, 'balades', 'tmp'), err => {
+                if (err) return notie.alert(3, 'Impossible de créer le dossier');
+                DownloadManager.download({
+                    url: 'https://decouverto.fr/walks/' + walk.id + '.zip',
+                    path: path.join('balades', 'tmp')
+                }, err => {
+                    if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');
+                    fs.copy(path.join(mainFolder, 'balades', 'tmp', walk.id + '.zip'), path.join(mainFolder, 'balades', walk.id + '.zip'), err => {
+                        if (err) return notie.alert(3, 'Une erreur a eu lieu lors de la copie.');
+                        fs.remove(path.join(mainFolder, 'balades', 'tmp'), err => {
+                            if (err) return notie.alert(3, 'Une erreur a eu lieu lors du nettoyage.');
+                            walk.downloaded = true;
+                            $scope.$apply();
+                            notie.alert(1, 'Téléchargement réussi.');
+                        });
+                    });
+                });
+            });
+        };
     });

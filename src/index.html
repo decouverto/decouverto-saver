@@ -37,10 +37,10 @@
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-condensed" ng-repeat="item in walks">
             <div>
-              <h6 class="my-0">{{item.title}}</h6>
+              <h6 class="my-0" ng-class="{green: item.downloaded}">{{item.title}}</h6>
             </div>
             <div>
-              <span class="oi oi-cloud-download list-action" ng-click="downloadWalk(item.id)"></span>
+              <span class="oi oi-cloud-download list-action" ng-click="downloadWalk(item)"></span>
             </div>
           </li>
         </ul>
@@ -57,7 +57,7 @@
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-condensed" ng-repeat="item in repos">
             <div>
-              <h6 class="my-0" ng-class="{green: item.downloaded == true}">{{item.name}}</h6>
+              <h6 class="my-0" ng-class="{green: item.downloaded}">{{item.name}}</h6>
             </div>
             <div>
               <span class="oi oi-cloud-download list-action" ng-click="downloadRepo(item)"></span>
