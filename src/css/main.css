@@ -1,0 +1,11 @@
+.list-action, .badge-action {
+    cursor: pointer;
+}
+.list-action:hover {
+    color: #6c757d;
+}
+.badge-action:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #bd2130;
+}
