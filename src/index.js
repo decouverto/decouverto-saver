@@ -1,4 +1,6 @@
 import { app, BrowserWindow } from 'electron';
+import path from 'path';
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -7,6 +9,11 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
+const DownloadManager = require("electron-download-manager");
+
+DownloadManager.register({downloadFolder: path.join(app.getPath('desktop'), 'Sauvegarde Decouverto')});
+
+
 let mainWindow;
 
 const createWindow = () => {

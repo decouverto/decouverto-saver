@@ -47,8 +47,10 @@
   "dependencies": {
     "angular": "^1.7.2",
     "electron-compile": "^6.4.3",
+    "electron-download-manager": "^2.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "github-repositories": "^3.0.0",
+    "ls": "^0.2.1",
     "ng-notie": "0.0.1"
   },
   "devDependencies": {
