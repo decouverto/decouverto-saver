@@ -1,8 +1,8 @@
 require('angular');
 require('ng-notie');
 
-const { ipcRenderer, remote } = require('electron');
-const { dialog, app, shell } = remote;
+const { remote } = require('electron');
+const { app } = remote;
 const fs = require('fs-extra');
 const path = require('path');
 const ls = require('ls');
@@ -50,12 +50,18 @@ angular.module('UI', ['ngNotie'])
             $scope.$apply();
         });
 
+        function displayProgress (progress) {
+            $scope.progress = Math.round(10*progress)/10;
+            $scope.$apply();
+        }
+
         $scope.downloadRepo = function (repo) {
             fs.mkdirp(path.join(mainFolder, 'logiciels', 'tmp'), err => {
                 if (err) return notie.alert(3, 'Impossible de créer le dossier');
                 DownloadManager.download({
                     url: 'https://codeload.github.com/' + repo.full_name + '/zip/' + repo.default_branch,
-                    path: path.join('logiciels', 'tmp')
+                    path: path.join('logiciels', 'tmp'),
+                    onProgress: displayProgress
                 }, err => {
                     if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');
                     let filename = repo.name + '-' + repo.default_branch + '.zip';
@@ -109,7 +115,8 @@ angular.module('UI', ['ngNotie'])
                 if (err) return notie.alert(3, 'Impossible de créer le dossier');
                 DownloadManager.download({
                     url: 'https://decouverto.fr/walks/' + walk.id + '.zip',
-                    path: path.join('balades', 'tmp')
+                    path: path.join('balades', 'tmp'),
+                    onProgress: displayProgress
                 }, err => {
                     if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');
                     fs.copy(path.join(mainFolder, 'balades', 'tmp', walk.id + '.zip'), path.join(mainFolder, 'balades', walk.id + '.zip'), err => {
@@ -125,13 +132,13 @@ angular.module('UI', ['ngNotie'])
             });
         };
 
-        function downloadWalks (ids) {
+        function downloadWalks(ids) {
             if (!ids.length) {
                 return notie.alert(1, 'Rien à télécharger.');
             }
             let links = [];
             ids.forEach(id => {
-                links.push('https://decouverto.fr/walks/' + id  + '.zip');
+                links.push('https://decouverto.fr/walks/' + id + '.zip');
             });
             DownloadManager.bulkDownload({
                 urls: links,
