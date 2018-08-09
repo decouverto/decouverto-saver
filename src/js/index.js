@@ -124,4 +124,52 @@ angular.module('UI', ['ngNotie'])
                 });
             });
         };
+
+        function downloadWalks (ids) {
+            if (!ids.length) {
+                return notie.alert(1, 'Rien à télécharger.');
+            }
+            let links = [];
+            ids.forEach(id => {
+                links.push('https://decouverto.fr/walks/' + id  + '.zip');
+            });
+            DownloadManager.bulkDownload({
+                urls: links,
+                path: path.join('balades', 'tmp')
+            }, function (err, finished) {
+                if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');
+                try {
+                    let files = finished.map(x => x.replace(/^.*[\\\/]/, ''));
+                    files.forEach(el => {
+                        fs.copySync(path.join(mainFolder, 'balades', 'tmp', el), path.join(mainFolder, 'balades', el));
+                    });
+                    fs.removeSync(path.join(mainFolder, 'balades', 'tmp'));
+                    if (finished.length == links.length) {
+                        notie.alert(1, 'Téléchargement réussi.');
+                    } else {
+                        notie.alert(2, 'Des balades n\'ont pas été téléchargés.');
+                    }
+                    for (let file of ls(path.join(mainFolder, 'balades', '*'))) {
+                        if (file.name != 'index') {
+                            let found = $scope.walks.find(element => {
+                                return element.id == file.name;
+                            });
+                            if (found) {
+                                found.downloaded = true;
+                            }
+                        }
+                    }
+                    $scope.$apply();
+                } catch (e) {
+                    notie.alert(3, 'Une erreur a eu lieu lors de la copie des balades.');
+                }
+            });
+        };
+
+        $scope.downloadAllWalks = function () {
+            downloadWalks($scope.walks.map(x => x.id));
+        };
+        $scope.syncWalks = function () {
+            downloadWalks($scope.walks.filter(x => x.downloaded != true).map(x => x.id));
+        };
     });
