@@ -1,6 +1,6 @@
 {
   "name": "decouverto-saver",
-  "productName": "decouverto-saver",
+  "productName": "Decouverto Saver",
   "version": "1.0.0",
   "description": "A tool to sync files from the website.",
   "main": "src/index.js",
@@ -12,7 +12,7 @@
     "lint": "eslint src --color"
   },
   "keywords": [],
-  "author": "cjung",
+  "author": "Decouverto",
   "license": "MIT",
   "config": {
     "forge": {
@@ -29,7 +29,7 @@
         "icon": "./icons/256x256.ico"
       },
       "electronWinstallerConfig": {
-        "name": "decouverto_saver",
+        "name": "decouvertosaver",
         "setupIcon": "./icons/256x256.ico"
       },
       "electronInstallerDebian": {},
@@ -49,6 +49,7 @@
     "electron-compile": "^6.4.3",
     "electron-download-manager": "^2.2.0",
     "electron-squirrel-startup": "^1.0.0",
+    "fs-extra": "^7.0.0",
     "github-repositories": "^3.0.0",
     "ls": "^0.2.1",
     "ng-notie": "0.0.1"
