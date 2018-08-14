@@ -54,6 +54,13 @@ angular.module('UI', ['ngNotie'])
             $scope.progress = Math.round(10*progress)/10;
             $scope.$apply();
         }
+        function displayResult (finishedCount, errorsCount) {
+            $scope.result = {
+                finished: finishedCount,
+                errors: errorsCount
+            };
+            $scope.$apply();
+        }
 
         $scope.downloadRepo = function (repo) {
             fs.mkdirp(path.join(mainFolder, 'logiciels', 'tmp'), err => {
@@ -87,6 +94,7 @@ angular.module('UI', ['ngNotie'])
             });
             DownloadManager.bulkDownload({
                 urls: links,
+                onResult: displayResult,
                 path: path.join('logiciels', 'tmp')
             }, function (err, finished) {
                 if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');
@@ -142,6 +150,7 @@ angular.module('UI', ['ngNotie'])
             });
             DownloadManager.bulkDownload({
                 urls: links,
+                onResult: displayResult,
                 path: path.join('balades', 'tmp')
             }, function (err, finished) {
                 if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');

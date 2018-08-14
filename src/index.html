@@ -21,6 +21,7 @@
       <h2>Outil de sauvegarde</h2>
       <p class="lead">Grâce à cet outil vous pouvez sauvegarder les parcours et le code source.</p>
       <p class="lead alert-success" ng-if="progress">Progression: le téléchargement en cours est réalisé à <b>{{progress}}%</b>.</p>
+      <p class="lead alert-success" ng-if="result">Progression: <b>{{result.finished}} fichiers téléchargé{{result.finished>0 ? 's' : ''}}</b> et {{result.errors}} échec{{result.errors>0 ? 's' : ''}}.</p>
     </div>
 
     <div class="row">
