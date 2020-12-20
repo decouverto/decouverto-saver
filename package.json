@@ -49,12 +49,7 @@
     "electron-compile": "^6.4.4",
     "electron-download-manager": "^2.2.0",
     "electron-squirrel-startup": "^1.0.0",
-<<<<<<< HEAD
     "github-repositories": "^4.0.0",
-=======
-    "fs-extra": "^7.0.0",
-    "github-repositories": "^3.0.0",
->>>>>>> e68323363207f12f95f7bf2f6ab3f0baaaeb0a0f
     "ls": "^0.2.1",
     "ng-notie": "0.0.1"
   },
