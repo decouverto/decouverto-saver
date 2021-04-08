@@ -1,68 +1,69 @@
 {
-  "name": "decouverto-saver",
-  "productName": "Decouverto Saver",
-  "version": "1.0.0",
-  "description": "A tool to sync files from the website.",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "eslint src --color"
-  },
-  "keywords": [],
-  "author": "Decouverto",
-  "license": "MIT",
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "linux": [
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "packageManager": "yarn",
-        "icon": "./icons/256x256.ico"
-      },
-      "electronWinstallerConfig": {
-        "name": "decouvertosaver",
-        "setupIcon": "./icons/256x256.ico"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "decouverto",
-        "name": "decouverto-saver"
-      },
-      "windowsStoreConfig": {
-        "packageName": "decouverto_saver",
-        "name": "decouverto_saver"
-      }
+    "name": "decouverto-saver",
+    "productName": "Decouverto Saver",
+    "version": "1.0.1",
+    "description": "A tool to sync files from the website.",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make",
+        "publish": "electron-forge publish",
+        "lint": "eslint src --color"
+    },
+    "keywords": [],
+    "author": "Decouverto",
+    "license": "MIT",
+    "config": {
+        "forge": {
+            "make_targets": {
+                "win32": [
+                    "squirrel"
+                ],
+                "linux": [
+                    "rpm"
+                ]
+            },
+            "electronPackagerConfig": {
+                "packageManager": "yarn",
+                "icon": "./icons/256x256.ico"
+            },
+            "electronWinstallerConfig": {
+                "name": "decouvertosaver",
+                "setupIcon": "./icons/256x256.ico"
+            },
+            "electronInstallerDebian": {},
+            "electronInstallerRedhat": {},
+            "github_repository": {
+                "owner": "decouverto",
+                "name": "decouverto-saver"
+            },
+            "windowsStoreConfig": {
+                "packageName": "decouverto_saver",
+                "name": "decouverto_saver"
+            }
+        }
+    },
+    "dependencies": {
+        "angular": "^1.7.2",
+        "electron-compile": "^6.4.4",
+        "electron-download-manager": "^2.2.0",
+        "electron-squirrel-startup": "^1.0.0",
+        "fs-extra": "^9.1.0",
+        "github-repositories": "^4.0.0",
+        "ls": "^0.2.1",
+        "ng-notie": "0.0.1"
+    },
+    "devDependencies": {
+        "babel-plugin-transform-async-to-generator": "^6.24.1",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
+        "electron-forge": "^5.2.4",
+        "electron-prebuilt-compile": "8.2.0",
+        "eslint": "^7.16.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-react": "^7.21.5"
     }
-  },
-  "dependencies": {
-    "angular": "^1.7.2",
-    "electron-compile": "^6.4.4",
-    "electron-download-manager": "^2.2.0",
-    "electron-squirrel-startup": "^1.0.0",
-    "github-repositories": "^4.0.0",
-    "ls": "^0.2.1",
-    "ng-notie": "0.0.1"
-  },
-  "devDependencies": {
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "electron-forge": "^5.2.4",
-    "electron-prebuilt-compile": "8.2.0",
-    "eslint": "^7.16.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.21.5"
-  }
 }
