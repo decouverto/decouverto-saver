@@ -16,7 +16,7 @@ angular.module('UI', ['ngNotie'])
 
         $http({
             method: 'GET',
-            url: 'https://decouverto.fr/walks/index.json'
+            url: 'https://decouverto.fr/save/index.json'
         }).then(res => {
             $scope.walks = res.data;
             fs.mkdirp(path.join(mainFolder, 'balades'), err => {
@@ -122,7 +122,7 @@ angular.module('UI', ['ngNotie'])
             fs.mkdirp(path.join(mainFolder, 'balades', 'tmp'), err => {
                 if (err) return notie.alert(3, 'Impossible de créer le dossier');
                 DownloadManager.download({
-                    url: 'https://decouverto.fr/walks/' + walk.id + '.zip',
+                    url: 'https://decouverto.fr/save/' + walk.id + '.zip',
                     path: path.join('balades', 'tmp'),
                     onProgress: displayProgress
                 }, err => {
@@ -146,7 +146,7 @@ angular.module('UI', ['ngNotie'])
             }
             let links = [];
             ids.forEach(id => {
-                links.push('https://decouverto.fr/walks/' + id + '.zip');
+                links.push('https://decouverto.fr/save/' + id + '.zip');
             });
             DownloadManager.bulkDownload({
                 urls: links,
