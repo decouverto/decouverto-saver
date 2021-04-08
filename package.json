@@ -1,7 +1,7 @@
 {
     "name": "decouverto-saver",
     "productName": "Decouverto Saver",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A tool to sync files from the website.",
     "main": "src/index.js",
     "scripts": {
@@ -47,7 +47,7 @@
     "dependencies": {
         "angular": "^1.7.2",
         "electron-compile": "^6.4.4",
-        "electron-download-manager": "^2.2.0",
+        "electron-download-manager": "git+https://github.com/cedced19/electron-download-manager.git",
         "electron-squirrel-startup": "^1.0.0",
         "fs-extra": "^9.1.0",
         "github-repositories": "^4.0.0",
