@@ -47,14 +47,26 @@ angular.module('UI', ['ngNotie'])
 
         githubRepositories('decouverto').then(data => {
             $scope.repos = data;
+            for (let file of ls(path.join(mainFolder, 'logiciels', '*'))) {
+                let found = data.find(element => {
+                    return element.name + '-' + element.default_branch == file.name;
+                });
+                if (found) {
+                    found.downloaded = true;
+                }
+            }
             $scope.$apply();
         });
 
-        function displayProgress (progress) {
-            $scope.progress = Math.round(10*progress)/10;
+        function displayProgress(progress) {
+            if (!isFinite(progress)) {
+                progress = 100;
+            }
+            $scope.progress = Math.round(10 * progress) / 10;
             $scope.$apply();
         }
-        function displayResult (finishedCount, errorsCount) {
+
+        function displayResult(finishedCount, errorsCount) {
             $scope.result = {
                 finished: finishedCount,
                 errors: errorsCount
@@ -62,7 +74,7 @@ angular.module('UI', ['ngNotie'])
             $scope.$apply();
         }
 
-        $scope.downloadRepo = function (repo) {
+        $scope.downloadRepo = function(repo) {
             fs.mkdirp(path.join(mainFolder, 'logiciels', 'tmp'), err => {
                 if (err) return notie.alert(3, 'Impossible de créer le dossier');
                 DownloadManager.download({
@@ -85,7 +97,7 @@ angular.module('UI', ['ngNotie'])
             });
         };
 
-        $scope.downloadAllRepos = function () {
+        $scope.downloadAllRepos = function() {
             let links = [];
             let filenames = [];
             $scope.repos.forEach((repo) => {
@@ -96,7 +108,7 @@ angular.module('UI', ['ngNotie'])
                 urls: links,
                 onResult: displayResult,
                 path: path.join('logiciels', 'tmp')
-            }, function (err, finished) {
+            }, function(err, finished) {
                 if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');
                 try {
                     filenames.forEach(el => {
@@ -118,7 +130,7 @@ angular.module('UI', ['ngNotie'])
             });
         }
 
-        $scope.downloadWalk = function (walk) {
+        $scope.downloadWalk = function(walk) {
             fs.mkdirp(path.join(mainFolder, 'balades', 'tmp'), err => {
                 if (err) return notie.alert(3, 'Impossible de créer le dossier');
                 DownloadManager.download({
@@ -152,7 +164,7 @@ angular.module('UI', ['ngNotie'])
                 urls: links,
                 onResult: displayResult,
                 path: path.join('balades', 'tmp')
-            }, function (err, finished) {
+            }, function(err, finished) {
                 if (err) return notie.alert(3, 'Une erreur a eu lieu lors du téléchargement.');
                 try {
                     let files = finished.map(x => x.replace(/^.*[\\\/]/, ''));
@@ -182,10 +194,10 @@ angular.module('UI', ['ngNotie'])
             });
         };
 
-        $scope.downloadAllWalks = function () {
+        $scope.downloadAllWalks = function() {
             downloadWalks($scope.walks.map(x => x.id));
         };
-        $scope.syncWalks = function () {
+        $scope.syncWalks = function() {
             downloadWalks($scope.walks.filter(x => x.downloaded != true).map(x => x.id));
         };
     });
